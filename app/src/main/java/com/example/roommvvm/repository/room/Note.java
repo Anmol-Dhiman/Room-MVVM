@@ -4,7 +4,7 @@ package com.example.roommvvm.repository.room;
 import androidx.room.PrimaryKey;
 
 @androidx.room.Entity(tableName = "notes")
-public class Entity {
+public class Note {
     @PrimaryKey(autoGenerate = true)
     int id;
 
@@ -14,7 +14,7 @@ public class Entity {
 
     int priority;
 
-    public Entity(String title, String desc, int priority) {
+    public Note(String title, String desc, int priority) {
         this.title = title;
         this.desc = desc;
         this.priority = priority;
