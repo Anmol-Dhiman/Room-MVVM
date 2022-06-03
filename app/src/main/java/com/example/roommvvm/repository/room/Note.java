@@ -6,13 +6,13 @@ import androidx.room.PrimaryKey;
 @androidx.room.Entity(tableName = "notes")
 public class Note {
     @PrimaryKey(autoGenerate = true)
-    int id;
+    private int id;
 
-    String title;
+    private String title;
 
-    String desc;
+    private String desc;
 
-    int priority;
+    private int priority;
 
     public Note(String title, String desc, int priority) {
         this.title = title;

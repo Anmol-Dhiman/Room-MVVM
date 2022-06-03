@@ -25,6 +25,7 @@ public abstract class NotesDataBase extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext()
                             , NotesDataBase.class, "note_database")
                     .fallbackToDestructiveMigration()
+                    .addCallback(callback)
                     .build();
         }
 
@@ -34,11 +35,9 @@ public abstract class NotesDataBase extends RoomDatabase {
 
     //    for showing some sample enteries in the database
     private static RoomDatabase.Callback callback = new RoomDatabase.Callback() {
-
-        //       onCreate is only called the first time when the database in generate
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
+            super.onOpen(db);
             new PopulateAsyncTask(instance).execute();
         }
     };
@@ -57,7 +56,6 @@ public abstract class NotesDataBase extends RoomDatabase {
             roomDAO.insert(new Note("harry", "potter", 1));
             roomDAO.insert(new Note("harsh", "Shekhawat", 2));
             roomDAO.insert(new Note("Ronak", "Jaiswal", 3));
-
             return null;
         }
     }

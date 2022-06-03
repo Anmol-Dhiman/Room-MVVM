@@ -1,4 +1,4 @@
-package com.example.roommvvm.activity;
+package com.example.roommvvm.activity.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.roommvvm.R;
 import com.example.roommvvm.repository.room.Note;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
 
-    private ArrayList<Note> noteArrayList;
+    private List<Note> noteArrayList = new ArrayList<>();
 
     @NonNull
     @Override
@@ -29,8 +31,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull NoteAdapter.ViewHolder holder, int position) {
         Note note = noteArrayList.get(position);
         holder.title.setText(note.getTitle());
-        holder.priority.setText(note.getPriority());
         holder.description.setText(note.getDesc());
+        holder.priority.setText(String.valueOf(note.getPriority()));
+    }
+
+    public Note getNote(int position) {
+        return noteArrayList.get(position);
     }
 
     @Override
@@ -38,12 +44,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         return noteArrayList.size();
     }
 
-    public void setNoteArrayList(ArrayList<Note> noteArrayList) {
+    public void setNoteArrayList(List<Note> noteArrayList) {
         this.noteArrayList = noteArrayList;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, description, priority;
+        private TextView title, description, priority;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

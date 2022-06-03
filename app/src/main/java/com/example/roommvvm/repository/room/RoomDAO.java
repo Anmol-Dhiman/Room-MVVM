@@ -41,8 +41,9 @@ public interface RoomDAO {
 //    at the compile time room will check weather the columns of the table matches with the Note.class or not
 //and the columns doesn't matches with the Note.class file then it will give the compile time error
 
-    @Query("SELECT * FROM notes ORDER BY priority DESC")
+
 //  by using the LiveData, we can observe this object now
+    @Query("SELECT * FROM notes ORDER BY priority DESC")
     LiveData<List<Note>> getAllNotes();
 
 }
