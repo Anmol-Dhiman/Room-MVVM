@@ -52,6 +52,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
 
 
+//Number picker
 
-
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roommvvm.R;
@@ -19,6 +20,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
 
     private List<Note> noteArrayList = new ArrayList<>();
+    private onItemClickListener listener;
 
     @NonNull
     @Override
@@ -33,6 +35,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         holder.title.setText(note.getTitle());
         holder.description.setText(note.getDesc());
         holder.priority.setText(String.valueOf(note.getPriority()));
+
+
     }
 
     public Note getNote(int position) {
@@ -46,7 +50,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     public void setNoteArrayList(List<Note> noteArrayList) {
         this.noteArrayList = noteArrayList;
+//        whenever we have a new input in the list then this function will tell that the previous list is invalid and it will drop the whole list and
+//        make the view from scratch
+
+//        or
+
+//        when we make changes to 1 item then it will reload the whole list on the screen
+//     to overcome this we have parameterized function which takes the int as input which is the index where the changes happen
+
+
+//        we have DiffUtil class which compares 2 lists and give us the index where changes happen
         notifyDataSetChanged();
+
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,6 +74,24 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             title = itemView.findViewById(R.id.title);
             description = itemView.findViewById(R.id.description);
             priority = itemView.findViewById(R.id.priority);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null && getAdapterPosition() != RecyclerView.NO_POSITION)
+                        listener.onItemClick(noteArrayList.get(getAdapterPosition()));
+                }
+            });
         }
+
+    }
+
+
+    public interface onItemClickListener {
+        void onItemClick(Note note);
+    }
+
+    public void setOnItemClickListener(onItemClickListener listener) {
+        this.listener = listener;
     }
 }
